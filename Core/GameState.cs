@@ -10,8 +10,8 @@
         public int Health { get; set; } = 100;
         public int Alarm { get; set; } = 0;
 
-        public HashSet<string> Inventory { get; set; } = new();
-        public bool HasItem(string itemId) { return Inventory.Contains(itemId); }
+        public HashSet<ItemID> Inventory { get; set; } = new();
+        public bool HasItem(ItemID itemId) { return Inventory.Contains(itemId); }
 
         public HashSet<string> Visited { get; set; } = new();
         public bool IsVisited(string token) { return Visited.Contains(token); }
