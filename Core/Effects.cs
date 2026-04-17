@@ -8,7 +8,8 @@ namespace Core
     public enum Stat
     {
         Health,
-        Alarm
+        Alarm,
+        OrionTrust
     }
 
     public class AddItem : Effect
@@ -18,14 +19,95 @@ namespace Core
         public void Apply(GameState state) { state.Inventory.Add(ItemId); }
     }
 
-    public  class SetVisited : Effect
+    public class RemoveItem : Effect
+    {
+        public ItemID ItemId { get; }
+        public RemoveItem(ItemID itemId) { ItemId = itemId; }
+        public void Apply(GameState state) { state.Inventory.Remove(ItemId); }
+    }
+
+    public class SetVisited : Effect
     {
         public string Token { get; }
-        public SetVisited(string token) => Token = token;
+        public SetVisited(string token) { Token = token; }
+
         public void Apply(GameState state) { state.Visited.Add(Token); }
     }
 
-    public sealed class AddInt : Effect
+    public class SetFlag : Effect
+    {
+        public string FlagName { get; }
+        public SetFlag(string flagName) { FlagName = flagName; }
+
+        public void Apply(GameState state) { state.SetFlag(FlagName); }
+    }
+
+    public class ClearFlag : Effect
+    {
+        public string FlagName { get; }
+        public ClearFlag(string flagName) { FlagName = flagName; }
+        public void Apply(GameState state) { state.ClearFlag(FlagName); }
+    }
+
+    public class Attempt : Effect
+    {
+        public ItemID[]? Items { get; }
+        public int Chance { get; }
+
+        public List<Effect> EffectsIfFailed { get; } = new();
+        public List<Effect> EffectsIfSuccess { get; } = new();
+        public Attempt(ItemID[] items, List<Effect> effectsIfSuccess, List<Effect> effectsIfFailed)
+        {
+            Items = items;
+            EffectsIfFailed = effectsIfFailed;
+            EffectsIfSuccess = effectsIfSuccess;
+        }
+        public Attempt(int chance, List<Effect> effectsIfSuccess, List<Effect> effectsIfFailed)
+        {
+            Items = null;
+            Chance = chance;
+            EffectsIfFailed = effectsIfFailed;
+            EffectsIfSuccess = effectsIfSuccess;
+        }
+        public void Apply(GameState state) {
+            if (Items == null)
+            {
+                if (Chance <= state.Roll(0, 100))
+                {
+                    foreach (var eff in EffectsIfSuccess)
+                    {
+                        eff.Apply(state);
+                    }
+                }
+                else
+                {
+                    foreach (var eff in EffectsIfFailed)
+                    {
+                        eff.Apply(state);
+                    }
+                }
+            }
+            else if (Items.Length > 0)
+            {
+                if (Items.Any(state.HasItem))
+                {
+                    foreach (var eff in EffectsIfSuccess)
+                    {
+                        eff.Apply(state);
+                    }
+                }
+                else
+                {
+                    foreach (var eff in EffectsIfFailed)
+                    {
+                        eff.Apply(state);
+                    }
+                }
+            }
+        }
+    }
+
+    public class AddInt : Effect
     {
         public Stat Stat { get; }
         public int Delta { get; }
@@ -44,6 +126,9 @@ namespace Core
                 case Stat.Alarm:
                     state.Alarm += Delta;
                     break;
+                case Stat.OrionTrust:
+                    state.OrionTrust += Delta;
+                    break;
             }
         }
     }
@@ -53,5 +138,22 @@ namespace Core
         public int Turns { get; }
         public TickTurns(int turns) { Turns = turns; }
         public void Apply(GameState state) { state.Tick(Turns); }
+    }
+
+    public static class Ef
+    {
+        public static AddInt AddHealth(int d) { return new AddInt(Stat.Health, d); }
+        public static AddInt AddAlarm(int d) { return new AddInt(Stat.Alarm, d); }
+        public static AddInt AddTrust(int d) { return new AddInt(Stat.OrionTrust, d); }
+
+        public static TickTurns T(int t) { return new TickTurns(t); }
+
+        public static AddItem Give(ItemID id) { return new AddItem(id); }
+        public static RemoveItem Take(ItemID id) { return new RemoveItem(id); }
+
+        public static SetFlag Flag(string f) { return new SetFlag(f); }
+        public static ClearFlag Unflag(string f) { return new ClearFlag(f); }
+
+        public static SetVisited Visit(string token) { return new SetVisited(token); }
     }
 }

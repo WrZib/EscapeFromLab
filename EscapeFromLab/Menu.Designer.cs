@@ -28,18 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu));
             label1 = new Label();
             label2 = new Label();
-            trackBar1 = new TrackBar();
-            button1 = new Button();
-            ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
+            startBtn = new Button();
             SuspendLayout();
             // 
             // label1
             // 
             label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
             label1.Font = new Font("Vtks Escape", 25.8000011F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.White;
             label1.Location = new Point(53, 56);
             label1.Name = "label1";
             label1.Size = new Size(384, 41);
@@ -50,46 +51,39 @@
             // 
             label2.Anchor = AnchorStyles.Top;
             label2.AutoSize = true;
+            label2.BackColor = Color.Transparent;
             label2.Font = new Font("Vtks Escape", 48F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.ForeColor = Color.WhiteSmoke;
             label2.Location = new Point(137, 97);
             label2.Name = "label2";
             label2.Size = new Size(219, 73);
             label2.TabIndex = 0;
             label2.Text = "Lab";
             // 
-            // trackBar1
+            // startBtn
             // 
-            trackBar1.Location = new Point(170, 373);
-            trackBar1.Maximum = 3;
-            trackBar1.Minimum = 1;
-            trackBar1.Name = "trackBar1";
-            trackBar1.Size = new Size(130, 56);
-            trackBar1.TabIndex = 1;
-            trackBar1.Value = 1;
-            // 
-            // button1
-            // 
-            button1.Font = new Font("Bahnschrift Condensed", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            button1.Location = new Point(137, 448);
-            button1.Name = "button1";
-            button1.Size = new Size(193, 45);
-            button1.TabIndex = 2;
-            button1.Text = "Начать Побег";
-            button1.UseVisualStyleBackColor = true;
+            startBtn.Font = new Font("Bahnschrift Condensed", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            startBtn.Location = new Point(137, 448);
+            startBtn.Name = "startBtn";
+            startBtn.Size = new Size(193, 45);
+            startBtn.TabIndex = 2;
+            startBtn.Text = "Начать Побег";
+            startBtn.UseVisualStyleBackColor = true;
+            startBtn.Click += startBtn_Click;
             // 
             // Menu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.SeaGreen;
+            BackColor = SystemColors.ControlDarkDark;
+            BackgroundImage = Properties.Resources.BackMenuImage;
             ClientSize = new Size(475, 603);
-            Controls.Add(button1);
-            Controls.Add(trackBar1);
+            Controls.Add(startBtn);
             Controls.Add(label2);
             Controls.Add(label1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Menu";
             Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -98,7 +92,6 @@
 
         private Label label1;
         private Label label2;
-        private TrackBar trackBar1;
-        private Button button1;
+        private Button startBtn;
     }
 }
