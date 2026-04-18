@@ -23,6 +23,9 @@ namespace EscapeFromLab
 
         }
 
+        /// <summary>
+        /// Отрисовка сцены
+        /// </summary>
         private void Render()
         {
             if (!_scenes.TryGetValue(_state.CurrentSceneId, out var scene))
@@ -67,6 +70,12 @@ namespace EscapeFromLab
                 }
             }
         }
+
+        /// <summary>
+        /// Обработка выбора
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnChoiceClick(object? sender, EventArgs e)
         {
             if (sender is not Button btn || btn.Tag is not Choice choice) return;

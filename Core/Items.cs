@@ -21,8 +21,14 @@ namespace Core
         Fuse
     }
 
+    /// <summary>
+    /// Класс предметов
+    /// </summary>
     public static class Items
     {
+        /// <summary>
+        /// Словарь предметов
+        /// </summary>
         public static readonly Dictionary<ItemID, string> ItemNames = new()
         {
             { ItemID.Wire, "Провод" },
@@ -45,6 +51,11 @@ namespace Core
             { ItemID.Fuse, "Предохранитель" }
         };
 
+        /// <summary>
+        /// Получение названия
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static string GetName(ItemID id)
         {
             return ItemNames.TryGetValue(id, out var name) ? name : id.ToString();

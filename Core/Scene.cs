@@ -1,5 +1,8 @@
 ﻿namespace Core
 {
+    /// <summary>
+    /// Класс сцен
+    /// </summary>
     public class Scene
     {
         public int Id { get; init; }

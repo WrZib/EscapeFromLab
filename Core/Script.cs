@@ -2,6 +2,9 @@
 
 namespace Core
 {
+    /// <summary>
+    /// Класс сюжета
+    /// </summary>
     public static class Script
     {
         private static Dictionary<int, Scene> _scenes = new();

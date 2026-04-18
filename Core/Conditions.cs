@@ -1,8 +1,15 @@
 ﻿namespace Core
 {
     // Условия
+
+    /// <summary>
+    /// Интерфейс условия
+    /// </summary>
     public interface Condition { bool Eval(GameState state); }
 
+    /// <summary>
+    /// Проверяет наличие предмета
+    /// </summary>
     public class HasItem : Condition
     {
         public ItemID ItemId { get; }
@@ -10,6 +17,9 @@
         public bool Eval(GameState state) { return state.HasItem(ItemId); }
     }
 
+    /// <summary>
+    /// Проверяет отсутствие просмотра
+    /// </summary>
     public class NotVisited : Condition
     {
         public string Token { get; }
@@ -17,6 +27,9 @@
         public bool Eval(GameState s) { return !s.IsVisited(Token); }
     }
 
+    /// <summary>
+    /// Проверяет просмотр
+    /// </summary>
     public class Visited : Condition
     {
         public string Token { get; }
@@ -24,6 +37,9 @@
         public bool Eval(GameState s) { return s.IsVisited(Token); }
     }
 
+    /// <summary>
+    /// Проверяет наличие флага
+    /// </summary>
     public class HasFlag : Condition
     {
         public string FlagName { get; }
@@ -31,6 +47,9 @@
         public bool Eval(GameState state) { return state.HasFlag(FlagName); }
     }
 
+    /// <summary>
+    /// Проверяет отсутствие флага
+    /// </summary>
     public class NotFlag : Condition
     {
         public string FlagName { get; }
@@ -38,6 +57,9 @@
         public bool Eval(GameState state) { return !state.HasFlag(FlagName); }
     }
 
+    /// <summary>
+    /// Проверяет отсутствие предмета
+    /// </summary>
     public class MissingItem : Condition
     {
         public ItemID ItemId { get; }
@@ -45,6 +67,9 @@
         public bool Eval(GameState state) { return !state.HasItem(ItemId); }
     }
 
+    /// <summary>
+    /// Проверяет наличие хотя бы одного предмета
+    /// </summary>
     public class HasAnyItem : Condition
     {
         public ItemID[] Items { get; }
@@ -52,6 +77,9 @@
         public bool Eval(GameState state) { return Items.Any(state.HasItem); }
     }
 
+    /// <summary>
+    /// Проверяет наличие хотя бы одного предмета
+    /// </summary>
     public class StatAtLeast : Condition
     {
         public Stat Stat { get; }
@@ -60,6 +88,9 @@
         public bool Eval(GameState state) { return state.GetStat(Stat) >= Value; }
     }
 
+    /// <summary>
+    /// Проверяет наличие хотя бы одного условия
+    /// </summary>
     public class StatBelow : Condition
     {
         public Stat Stat { get; }
@@ -68,6 +99,9 @@
         public bool Eval(GameState state) { return state.GetStat(Stat) < Value; }
     }
 
+    /// <summary>
+    /// Проверяет наличие хотя бы одного условия
+    /// </summary>
     public class AnyCondition : Condition
     {
         public Condition[] Conditions { get; }
@@ -75,6 +109,9 @@
         public bool Eval(GameState state) { return Conditions.Any(c => c.Eval(state)); }
     }
 
+    /// <summary>
+    /// Класс условий
+    /// </summary>
     public static class Req
     {
         public static HasItem Item(ItemID id) { return new HasItem(id); }

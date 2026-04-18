@@ -208,6 +208,7 @@
             // 
             // hp
             // 
+            hp.Anchor = AnchorStyles.Top;
             hp.AutoSize = true;
             hp.BackColor = Color.Transparent;
             hp.ForeColor = Color.White;
@@ -219,6 +220,7 @@
             // 
             // alarm
             // 
+            alarm.Anchor = AnchorStyles.Top;
             alarm.AutoSize = true;
             alarm.BackColor = Color.Transparent;
             alarm.ForeColor = Color.White;
@@ -230,6 +232,7 @@
             // 
             // trust
             // 
+            trust.Anchor = AnchorStyles.Top;
             trust.AutoSize = true;
             trust.BackColor = Color.Transparent;
             trust.ForeColor = Color.White;
@@ -246,6 +249,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DimGray;
             BackgroundImage = Properties.Resources.BackImage;
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(745, 774);
             Controls.Add(alarm);
             Controls.Add(trust);

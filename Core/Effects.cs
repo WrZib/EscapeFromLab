@@ -3,6 +3,10 @@
 namespace Core
 {
     // Эффекты
+
+    /// <summary>
+    /// Интерфейс эффекта
+    /// </summary>
     public interface Effect { void Apply(GameState state); }
 
     public enum Stat
@@ -12,6 +16,9 @@ namespace Core
         OrionTrust
     }
 
+    /// <summary>
+    /// Добавление предмета
+    /// </summary>
     public class AddItem : Effect
     {
         public ItemID ItemId { get; }
@@ -19,6 +26,9 @@ namespace Core
         public void Apply(GameState state) { state.Inventory.Add(ItemId); }
     }
 
+    /// <summary>
+    /// Удаление предмета
+    /// </summary>
     public class RemoveItem : Effect
     {
         public ItemID ItemId { get; }
@@ -26,6 +36,9 @@ namespace Core
         public void Apply(GameState state) { state.Inventory.Remove(ItemId); }
     }
 
+    /// <summary>
+    /// Добавление просмотра
+    /// </summary>
     public class SetVisited : Effect
     {
         public string Token { get; }
@@ -34,6 +47,9 @@ namespace Core
         public void Apply(GameState state) { state.Visited.Add(Token); }
     }
 
+    /// <summary>
+    /// Добавление флага
+    /// </summary>
     public class SetFlag : Effect
     {
         public string FlagName { get; }
@@ -42,6 +58,9 @@ namespace Core
         public void Apply(GameState state) { state.SetFlag(FlagName); }
     }
 
+    /// <summary>
+    /// Удаление флага
+    /// </summary>
     public class ClearFlag : Effect
     {
         public string FlagName { get; }
@@ -49,6 +68,9 @@ namespace Core
         public void Apply(GameState state) { state.ClearFlag(FlagName); }
     }
 
+    /// <summary>
+    /// Попытка
+    /// </summary>
     public class Attempt : Effect
     {
         public ItemID[]? Items { get; }
@@ -107,6 +129,9 @@ namespace Core
         }
     }
 
+    /// <summary>
+    /// Добавление очков
+    /// </summary>
     public class AddInt : Effect
     {
         public Stat Stat { get; }
@@ -133,6 +158,9 @@ namespace Core
         }
     }
 
+    /// <summary>
+    /// Добавление тика
+    /// </summary>
     public class TickTurns : Effect
     {
         public int Turns { get; }
@@ -140,6 +168,9 @@ namespace Core
         public void Apply(GameState state) { state.Tick(Turns); }
     }
 
+    /// <summary>
+    /// Класс эффектов
+    /// </summary>
     public static class Ef
     {
         public static AddInt AddHealth(int d) { return new AddInt(Stat.Health, d); }

@@ -1,5 +1,8 @@
 ﻿namespace Core
 {
+    /// <summary>
+    /// Класс выбора
+    /// </summary>
     public class Choice
    {
         public string Text { get; init; } = "";
@@ -8,6 +11,11 @@
         public List<Condition> Requirements { get; init; } = new();
         public List<Effect> Effects { get; init; } = new();
 
+        /// <summary>
+        /// Проверяет доступность выбора
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
         public bool IsAvailable(GameState state)
         {
             return Requirements.All(req => req.Eval(state));

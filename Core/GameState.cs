@@ -1,5 +1,8 @@
 ﻿namespace Core
 {
+    /// <summary>
+    /// Класс флагов
+    /// </summary>
     public static class Flag
     {
         public const string PowerOn = "PowerOn";
@@ -18,6 +21,9 @@
         public const string EvacPlanFound = "EvacPlanFound";
     }
 
+    /// <summary>
+    /// Класс игры
+    /// </summary>
     public class GameState
     {
         public int CurrentSceneId { get; set; } = 0;
