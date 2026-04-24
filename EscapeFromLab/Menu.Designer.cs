@@ -83,7 +83,7 @@
             Controls.Add(label1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Menu";
-            Text = "Form1";
+            Text = "Escape From Lab";
             ResumeLayout(false);
             PerformLayout();
         }
